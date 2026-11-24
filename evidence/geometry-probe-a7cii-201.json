@@ -1,0 +1,365 @@
+{
+  "image": "/Users/masayoshimatsubara/git/a7c2/fwtool.py/unpacked/firmware.tar_unpacked/0700_part_image/dev/nflasha15_unpacked/lib/appFw.so",
+  "size": 99960744,
+  "sha256": "2ea02f7ecbc5bb917316fe8ef4ce5ffd87eb66efaae78ba2ce11420552df539b",
+  "skipped_noise_sections": true,
+  "only_sections": [
+    ".rodata",
+    ".data",
+    ".data.rel.ro"
+  ],
+  "numbers": {
+    "sensor_active_width_7008": {
+      "value": 7008,
+      "le_hex": "601b",
+      "total": 692,
+      "first": [
+        {
+          "offset": "0x371b4aa",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3762c3c",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x41bee78",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x4357170",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x4357ed4",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x4357ee4",
+          "section": ".rodata"
+        }
+      ],
+      "why": "full sensor width of the 33 MP sensor"
+    },
+    "sensor_active_height_4672": {
+      "value": 4672,
+      "le_hex": "4012",
+      "total": 830,
+      "first": [
+        {
+          "offset": "0x3722680",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x372fd7c",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3ddbb60",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3e04f48",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3e04f4c",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3e0f8c8",
+          "section": ".rodata"
+        }
+      ],
+      "why": "full sensor height: what open gate wants to read out"
+    },
+    "uhd_width_3840": {
+      "value": 3840,
+      "le_hex": "000f",
+      "total": 23863,
+      "first": [
+        {
+          "offset": "0x37041f5",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x37041f9",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x37041fd",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3704201",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3704205",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3704209",
+          "section": ".rodata"
+        }
+      ],
+      "why": "3840: UHD width, and the open-gate 3:2 output width"
+    },
+    "uhd_height_2160": {
+      "value": 2160,
+      "le_hex": "7008",
+      "total": 634,
+      "first": [
+        {
+          "offset": "0x3718980",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x37222ff",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x372acd4",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3734ef0",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3767d60",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3767d68",
+          "section": ".rodata"
+        }
+      ],
+      "why": "2160: UHD height, replaced by 2560 in a 3:2 output"
+    },
+    "og_4k_height_2560": {
+      "value": 2560,
+      "le_hex": "000a",
+      "total": 19814,
+      "first": [
+        {
+          "offset": "0x3704beb",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x37053bf",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x37053eb",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3705c1f",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3705f62",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3705f6a",
+          "section": ".rodata"
+        }
+      ],
+      "why": "3840x2560: the 3:2 output of the A7 IV kit's 4K state"
+    },
+    "og_57k_width_5760": {
+      "value": 5760,
+      "le_hex": "8016",
+      "total": 2384,
+      "first": [
+        {
+          "offset": "0x377b217",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x377b29f",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x377bb8f",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x377bed7",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x377bf97",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x377c057",
+          "section": ".rodata"
+        }
+      ],
+      "why": "5760x3840: the A7 IV kit's real 5.7K state"
+    },
+    "og_57k_height_3840": {
+      "value": 3840,
+      "le_hex": "000f",
+      "total": 23863,
+      "first": [
+        {
+          "offset": "0x37041f5",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x37041f9",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x37041fd",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3704201",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3704205",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3704209",
+          "section": ".rodata"
+        }
+      ],
+      "why": "same as the UHD width; listed for completeness"
+    },
+    "a7iv_stream0_height_3942": {
+      "value": 3942,
+      "le_hex": "660f",
+      "total": 88,
+      "first": [
+        {
+          "offset": "0x371d86a",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x371f8e0",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3723dad",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x372e484",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3dda490",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3e03878",
+          "section": ".rodata"
+        }
+      ],
+      "why": "the A7 IV field the kit raises to 4672 (0x0f66)"
+    },
+    "a7iv_v_offset_366": {
+      "value": 366,
+      "le_hex": "6e01",
+      "total": 1770,
+      "first": [
+        {
+          "offset": "0x370570c",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3707a08",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3711960",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x371e28f",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3726c80",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x37272db",
+          "section": ".rodata"
+        }
+      ],
+      "why": "the A7 IV V offset the kit zeroes (0x016e)"
+    },
+    "a7iv_readout_2011": {
+      "value": 2011,
+      "le_hex": "db07",
+      "total": 179,
+      "first": [
+        {
+          "offset": "0x3718030",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x372a82c",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x377ea38",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x377eb00",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x377eef0",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x377efb0",
+          "section": ".rodata"
+        }
+      ],
+      "why": "the A7 IV readout length in line periods (0x07db)"
+    },
+    "a7iv_lc_field6_403": {
+      "value": 403,
+      "le_hex": "9301",
+      "total": 18245,
+      "first": [
+        {
+          "offset": "0x3705834",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3707b30",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3711bb0",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3726ed0",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3738ad4",
+          "section": ".rodata"
+        },
+        {
+          "offset": "0x3738adc",
+          "section": ".rodata"
+        }
+      ],
+      "why": "the A7 IV LC field 6 value (0x0193)"
+    }
+  }
+}

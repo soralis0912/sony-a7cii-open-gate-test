@@ -1,0 +1,20 @@
+{
+  "design": "TEMPLATE",
+  "model": "ILCE-7CM2",
+  "firmware": "2.01",
+  "status": "template; no verified patch for the A7C II exists yet",
+  "target": {
+    "file": "p15 /usr/lib/appFw.so",
+    "sha256": "2ea02f7ecbc5bb917316fe8ef4ce5ffd87eb66efaae78ba2ce11420552df539b"
+  },
+  "patches": [
+    {
+      "kind": "S",
+      "addr": "0x0",
+      "old": "0000",
+      "new": "0000",
+      "where": "file",
+      "note": "what this field is, and how it was identified"
+    }
+  ]
+}

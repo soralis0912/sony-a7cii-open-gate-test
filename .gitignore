@@ -1,0 +1,18 @@
+# nothing camera- or firmware-derived belongs in this repository
+*.bin
+*.dat
+*.DAT
+*.img
+*.so
+*.elf
+*.apk
+*_unpacked/
+unpacked/
+reference/
+camera_private/
+local/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.DS_Store

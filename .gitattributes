@@ -1,0 +1,3 @@
+# JSON designs are byte-exact records; keep line endings as committed.
+designs/** -text
+evidence/** -text
