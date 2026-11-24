@@ -4,10 +4,14 @@
 
 ## 0. ネイティブ実行経路の確認【実機・最優先】
 
-- [ ] [sony-a7cii-shell-access](https://github.com/soralis0912/sony-a7cii-shell-access)
-      の `scripts/probe_service_level.py` を実行し、サービス権限レベルを記録する
-- [ ] レベル A なら、Jiritsu の `SET_FILE` と `dlopen` 対象名を確認する
-- [ ] レベル B / C なら、本リポジトリは**待ち**にする（理由を README に反映する）
+読み取り側は確認済み（2026-11-24、`GET_FILE2` が status 0）。
+残るのは書き込み側で、**権限レベルには依らない**。
+
+- [ ] `scripts/survey_readonly.py`（shell-access 側）で `/etc` と `/setting` を
+      読み、Jiritsu が今も通ることを確認する
+- [ ] `SET_FILE` / `SET_FILE2` の引数形式を特定する（`libsencore.so` / `libJiritsu.so`）
+- [ ] 揮発領域に書いて読み戻し、一致を確認する
+- [ ] `dlopen` 対象名の探索パスを確認する
 
 ## 1. ネイティブ実行を必要としない確認【実機・プロパティのみ】
 

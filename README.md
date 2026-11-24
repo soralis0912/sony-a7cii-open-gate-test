@@ -34,18 +34,24 @@ A7 IV の成果はすべて原著者のものです。詳細は [REFERENCES.md](
 | --- | --- |
 | センサー | A7 IV と同世代の 33MP（7008 x 4672）。オープンゲートの寸法設計は近い見込み |
 | アスペクト／デスキーズのプロパティ | ILCE-7CM2 の `appFw.so` に存在（`0x02cf01fc ASPECT_RATIO`、`DE_SQUEEZE_DISP` 系） |
-| ネイティブコード実行の経路 | **未確立。** サービス権限レベル A（`adjCodeLevel == 3`）が必要で、A7C II で到達できるか未確認 |
+| ネイティブコード実行の経路 | **半分確認済み（2026-11-24 訂正）。** A7 IV キットは Jiritsu のファイル書き込みで一時 `libJit.so` を置いて読み込ませる。Jiritsu は `0x40` AdjustControl 経由（カテゴリ `0x1001`）で**権限レベルに依らず**、**読み取りは実機で確認済み**。未確認なのは**書き込み側**（`SET_FILE` `0x4007`） |
 | センサー geometry のアドレス | **特定済み（2026-11-24）。** p8 の `cpapp-b.bin` 内、`0xdd81d8` の読み出しモードテーブル。全面 7008x4672 と現行 16:9 窓 7008x3942 の両方が入っている。[docs/SENSOR_TABLE.md](docs/SENSOR_TABLE.md) |
 | スケーラ／エンコーダのアドレス | **未特定。** A7 IV のアドレスは流用できない |
 | 実機適用 | **未実施** |
 
-一番上の関門は2つ目です。A7 IV キットが前提にしている「USB でネイティブコードを
-走らせる」経路は、A7C II では `0xff00` TestMode（Jiritsu の入口）に相当し、
-これは**サービス権限レベル A のテーブルにしか無い**ことが分かっています。
-判定方法と根拠は姉妹リポジトリ
+**訂正（2026-11-24）**：ここに「その経路は `0xff00` TestMode で、
+サービス権限レベル A のテーブルにしか無い」と書いていましたが誤りでした。
+Jiritsu は `0x40` AdjustControl 経由（カテゴリ `0x1001`、コマンド
+`0x4001`〜`0x4012`）で、AdjustControl は全レベルのテーブルにあります。
+実機でも読み取り（`GET_FILE2` `0x4011`）が通っています。
+
+したがって関門は「レベル A が出るか」ではなく、**Jiritsu の書き込み
+（`SET_FILE` `0x4007` / `SET_FILE2` `0x4010`）が通るか**です。
+コマンド一覧と危険な隣人（`FORMAT` / `FIRMUP` / `FILE_DELETE`）は姉妹リポジトリ
+[sony-a7cii-feature-research](https://github.com/soralis0912/sony-a7cii-feature-research)
+の `evidence/jiritsu-commands-a7cii-201.json`、手順は
 [sony-a7cii-shell-access](https://github.com/soralis0912/sony-a7cii-shell-access)
-の `docs/ON_MEMORY.md` と `scripts/probe_service_level.py`。
-**そこでレベル A が出ない限り、本リポジトリは前に進みません。**
+の `docs/FIELD_SESSION.md`。
 
 **今すぐ実機で試せるものが1つだけあります**：デスキーズ表示系の
 バックアッププロパティ。ネイティブ実行もデザインも要りません。手順は

@@ -24,16 +24,21 @@ A7 IV キットは1つの状態を**複数のステップ**に分け、各ステ
 ### 0. 前提：ネイティブ実行経路【最優先・未達】
 
 A7 IV の「レベル」はすべて、サービスプロトコル経由でカメラにネイティブ
-ヘルパーを読み込ませられることが前提。A7C II では、その入口に当たる
-`0xff00` TestMode が**サービス権限レベル A のテーブルにしか無い**。
+ヘルパーを読み込ませられることが前提。その経路は Jiritsu の
+ファイル書き込み（カテゴリ `0x1001`、`SET_FILE` `0x4007` /
+`SET_FILE2` `0x4010`）で、**PFUNC `0x40` AdjustControl 経由なので
+サービス権限レベルに依らない**（当初 `0xff00` TestMode と誤記していた）。
 
-- [ ] 姉妹リポジトリ
-      [sony-a7cii-shell-access](https://github.com/soralis0912/sony-a7cii-shell-access)
-      の `scripts/probe_service_level.py` でレベルを測る
-- [ ] レベル A なら、ヘルパーを読み込ませる経路（Jiritsu の `SET_FILE` と
-      `dlopen` 対象名）を確認する
-- [ ] レベル B / C なら、**ここで止まる**。以降の解析は机上の作業として
-      続けられるが、カメラには当てられない
+読み取り側（`SET_FILE_PATH` `0x400f` + `GET_FILE2` `0x4011`）は
+**2026-11-24 に実機で確認済み**。
+
+- [ ] 書き込み側（`SET_FILE`）の引数形式を特定する。
+      同じ番号帯に `FORMAT` / `FIRMUP` / `FILE_DELETE` が並んでいるので、
+      番号の取り違えは事故になる
+- [ ] 揮発領域（`/tmp_wbshd`）に小さなファイルを書き、`GET_FILE2` で
+      読み戻して一致を確認する
+- [ ] `dlopen` される名前（`libpro%02X.so` / `libtestcmd.so` ほか）の
+      探索パスを確認する
 
 ### 1. センサー geometry テーブル【完了・2026-11-24】
 

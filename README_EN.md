@@ -35,18 +35,23 @@ approach for the A7C II. All A7 IV results belong to their original authors; see
 | --- | --- |
 | Sensor | the same 33 MP generation as the A7 IV (7008 x 4672), so the open-gate dimensions should map closely |
 | Aspect / de-squeeze properties | present in the ILCE-7CM2 `appFw.so` (`0x02cf01fc ASPECT_RATIO`, the `DE_SQUEEZE_DISP` family) |
-| A path for running native code | **not established.** It needs service level A (`adjCodeLevel == 3`), and whether an A7C II grants it is unconfirmed |
+| A path for running native code | **half confirmed (corrected 2026-11-24).** The A7 IV kit places a temporary `libJit.so` through Jiritsu's file write. Jiritsu rides on PFUNC 0x40 AdjustControl (category 0x1001), which does not depend on the privilege level, and its **read side is confirmed on hardware**. The **write side** (`SET_FILE` 0x4007) is what remains unverified |
 | Sensor geometry addresses | **found (2026-11-24).** The readout-mode table at 0xdd81d8 inside p8's `cpapp-b.bin`, carrying both 7008x4672 (the whole sensor) and today's 16:9 window 7008x3942. See [docs/SENSOR_TABLE.md](docs/SENSOR_TABLE.md) (Japanese) |
 | Scaler / encoder addresses | **unknown.** None of the A7 IV addresses carry over |
 | Applied to a camera | **not attempted** |
 
-The third row is the real gate. The "run native code over USB" path the A7 IV kit
-relies on corresponds, on the A7C II, to `0xff00` TestMode — the Jiritsu front end —
-and that entry exists **only in service level A's dispatch table**. The reasoning
-and a read-only probe live in the sibling repository
-[sony-a7cii-shell-access](https://github.com/soralis0912/sony-a7cii-shell-access)
-(`docs/ON_MEMORY.md`, `scripts/probe_service_level.py`).
-**Until a camera reports level A, this repository cannot move forward.**
+**Correction (2026-11-24).** This said the path was `0xff00` TestMode, which
+only level A's dispatch table holds. That was wrong: Jiritsu rides on PFUNC
+0x40 AdjustControl at category 0x1001, commands 0x4001-0x4012, and
+AdjustControl is in every level's table. A probe confirmed the read side on
+hardware.
+
+So the gate is not "does this camera reach level A" but **does Jiritsu's write
+side work** (`SET_FILE` 0x4007 / `SET_FILE2` 0x4010). The command list, and
+which of its neighbours are destructive, are in
+[sony-a7cii-feature-research](https://github.com/soralis0912/sony-a7cii-feature-research);
+the procedure is in
+[sony-a7cii-shell-access](https://github.com/soralis0912/sony-a7cii-shell-access).
 
 **One thing can be tried on a camera right now**: the de-squeeze display
 backup properties. They need no native code and no design. The procedure is in
