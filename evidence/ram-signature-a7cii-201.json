@@ -1,0 +1,111 @@
+{
+  "image": "cpapp-b.bin",
+  "image_size": 18090880,
+  "signature": {
+    "file_offset": "0xdd832e",
+    "length": 76,
+    "hex": "10000c000c00601b0c000400000000002200180002000800660f08000200000000000000000010000c000c00601b0c000400000000002200180002000800660f080002000000000000000000",
+    "occurrences_in_image": 1,
+    "note": "covers both 7008x3942 records; record 0 at +0, record 1 at +38"
+  },
+  "patch_within_signature": [
+    {
+      "name": "record0 vertical[2]",
+      "at": 20,
+      "old": 2,
+      "new": 8
+    },
+    {
+      "name": "record0 vertical[4] (v_active)",
+      "at": 24,
+      "old": 3942,
+      "new": 4672
+    },
+    {
+      "name": "record0 vertical[6]",
+      "at": 28,
+      "old": 2,
+      "new": 8
+    },
+    {
+      "name": "record1 vertical[2]",
+      "at": 58,
+      "old": 2,
+      "new": 8
+    },
+    {
+      "name": "record1 vertical[4] (v_active)",
+      "at": 62,
+      "old": 3942,
+      "new": 4672
+    },
+    {
+      "name": "record1 vertical[6]",
+      "at": 66,
+      "old": 2,
+      "new": 8
+    }
+  ],
+  "records": {
+    "full_a": {
+      "offset": "0xdd82e2",
+      "h_active": 7008,
+      "v_active": 4672,
+      "vertical_group": [
+        34,
+        24,
+        8,
+        8,
+        4672,
+        8,
+        8,
+        0
+      ]
+    },
+    "full_b": {
+      "offset": "0xdd8308",
+      "h_active": 7008,
+      "v_active": 4672,
+      "vertical_group": [
+        34,
+        24,
+        8,
+        8,
+        4672,
+        8,
+        8,
+        0
+      ]
+    },
+    "win169_a": {
+      "offset": "0xdd832e",
+      "h_active": 7008,
+      "v_active": 3942,
+      "vertical_group": [
+        34,
+        24,
+        2,
+        8,
+        3942,
+        8,
+        2,
+        0
+      ]
+    },
+    "win169_b": {
+      "offset": "0xdd8354",
+      "h_active": 7008,
+      "v_active": 3942,
+      "vertical_group": [
+        34,
+        24,
+        2,
+        8,
+        3942,
+        8,
+        2,
+        0
+      ]
+    }
+  }
+}
