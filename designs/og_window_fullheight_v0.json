@@ -1,0 +1,63 @@
+{
+  "design": "og_window_fullheight_v0",
+  "model": "ILCE-7CM2",
+  "firmware": "2.01",
+  "status": "candidate, never applied to a camera. The old bytes are verified against the extracted firmware; nothing else is.",
+  "purpose": "Make the sensor's 16:9 readout window (7008x3942) read the whole 3:2 sensor area (7008x4672), by giving its vertical group the values the firmware's own full-height records already use.",
+  "target": {
+    "file": "p8 cpapp-b.bin (0700_part_image/dev/nflasha8_unpacked/cpapp-b.bin)",
+    "sha256": "f5a477588698ef965748903b8959a39ce4f59ffd4aee4d4234ef1670f56a1428",
+    "table": "readout-mode table at 0xdd81d8, 53 records of 38 bytes; see scripts/locate_sensor_table.py"
+  },
+  "reference": "This mirrors the A7 IV kit's step 2 (ogsq_v3 / og57n_v1), which changes the same three fields of the same record shape at its own addresses. Those addresses do not apply here.",
+  "patches": [
+    {
+      "kind": "S",
+      "addr": "0xdd8342",
+      "old": "0200",
+      "new": "0800",
+      "where": "cpapp",
+      "note": "record 0xdd832e, vertical field 2: 2 -> 8, the value the 4672 records carry"
+    },
+    {
+      "kind": "S",
+      "addr": "0xdd8346",
+      "old": "660f",
+      "new": "4012",
+      "where": "cpapp",
+      "note": "record 0xdd832e, vertical active height: 3942 -> 4672 (whole sensor)"
+    },
+    {
+      "kind": "S",
+      "addr": "0xdd834a",
+      "old": "0200",
+      "new": "0800",
+      "where": "cpapp",
+      "note": "record 0xdd832e, vertical field 6: 2 -> 8, the value the 4672 records carry"
+    },
+    {
+      "kind": "S",
+      "addr": "0xdd8368",
+      "old": "0200",
+      "new": "0800",
+      "where": "cpapp",
+      "note": "record 0xdd8354, vertical field 2: 2 -> 8"
+    },
+    {
+      "kind": "S",
+      "addr": "0xdd836c",
+      "old": "660f",
+      "new": "4012",
+      "where": "cpapp",
+      "note": "record 0xdd8354, vertical active height: 3942 -> 4672"
+    },
+    {
+      "kind": "S",
+      "addr": "0xdd8370",
+      "old": "0200",
+      "new": "0800",
+      "where": "cpapp",
+      "note": "record 0xdd8354, vertical field 6: 2 -> 8"
+    }
+  ]
+}

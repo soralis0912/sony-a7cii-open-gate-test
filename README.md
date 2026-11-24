@@ -12,10 +12,9 @@ Sony **ILCE-7CM2**（A7C II）ファームウェア **Ver. 2.01** で、セン�
 そのまま記録する「オープンゲート」を**一時設定（メモリのみ）**で有効にするための
 キットを作る試みです。
 
-> **状態：足場だけ。実機での適用は1件も成立していません。**
-> ILCE-7CM2 向けの検証済みデザイン（バイトパッチ集合）は**まだ存在しません**。
-> 今あるのは、デザインの形式、オフライン照合ツール、ファームウェア内の
-> 候補アドレスを探すプローブ、そして「何が足りないか」の記録です。
+> **状態：センサー側のアドレスは特定済み、実機での適用は1件も成立していません。**
+> 候補デザインが2件ありますが、検証済みなのは「そのアドレスにその値が
+> 確かにある」ところまでで、カメラには当てていません。
 
 ## これは何の移植か
 
@@ -36,7 +35,8 @@ A7 IV の成果はすべて原著者のものです。詳細は [REFERENCES.md](
 | センサー | A7 IV と同世代の 33MP（7008 x 4672）。オープンゲートの寸法設計は近い見込み |
 | アスペクト／デスキーズのプロパティ | ILCE-7CM2 の `appFw.so` に存在（`0x02cf01fc ASPECT_RATIO`、`DE_SQUEEZE_DISP` 系） |
 | ネイティブコード実行の経路 | **未確立。** サービス権限レベル A（`adjCodeLevel == 3`）が必要で、A7C II で到達できるか未確認 |
-| geometry／スケーラ／エンコーダのアドレス | **未特定。** A7 IV のアドレスは一切流用できない |
+| センサー geometry のアドレス | **特定済み（2026-11-24）。** p8 の `cpapp-b.bin` 内、`0xdd81d8` の読み出しモードテーブル。全面 7008x4672 と現行 16:9 窓 7008x3942 の両方が入っている。[docs/SENSOR_TABLE.md](docs/SENSOR_TABLE.md) |
+| スケーラ／エンコーダのアドレス | **未特定。** A7 IV のアドレスは流用できない |
 | 実機適用 | **未実施** |
 
 一番上の関門は2つ目です。A7 IV キットが前提にしている「USB でネイティブコードを
@@ -54,11 +54,12 @@ A7 IV の成果はすべて原著者のものです。詳細は [REFERENCES.md](
 ## 入っているもの
 
 ```
-designs/     デザイン（バイトパッチ集合）の置き場と形式見本
-             ※ ILCE-7CM2 向けの検証済みデザインはまだ無い
-scripts/     verify_design.py    デザインの old バイトを展開済み fw と照合（PC のみ）
-             locate_geometry.py  fw 内で寸法が出てくる位置を探すプローブ（PC のみ）
-docs/        DERIVATION.md       A7 IV の各ステップに対して A7C II で何を特定すべきか
+designs/     デザイン（バイトパッチ集合）。候補2件（old のみ検証済み）
+scripts/     verify_design.py       デザインの old バイトを展開済み fw と照合
+             locate_sensor_table.py センサー読み出しモードテーブルを見つけて全件デコード
+             locate_geometry.py     fw 内で寸法が出てくる位置を探す汎用プローブ
+docs/        SENSOR_TABLE.md     特定したテーブルの構造と候補デザインの根拠
+             DERIVATION.md       A7 IV の各ステップに対して A7C II で何を特定すべきか
              DESIGN_FORMAT.md    デザイン JSON の形式
              PROPERTY_EXPERIMENTS.md
                                  ネイティブ実行なしで今すぐ試せる実験（実機）
@@ -75,7 +76,15 @@ evidence/    プローブの出力（再現可能な記録）
 の `a7cII` ブランチで展開してください。
 
 ```bash
-# 寸法が出てくる候補位置を探す（テーブルは .rodata / .data にある）
+# センサー読み出しモードテーブルを見つけて全53レコードをデコードする
+python3 scripts/locate_sensor_table.py \
+  <p8>/cpapp-b.bin --json evidence/sensor-table-a7cii-201.json
+
+# 候補デザインの old バイトを照合する
+python3 scripts/verify_design.py designs/og_window_fullheight_v0.json \
+  --image "cpapp=<p8>/cpapp-b.bin"
+
+# 汎用プローブ：寸法が出てくる候補位置を探す（appFw 側）
 python3 scripts/locate_geometry.py \
   <p15>/lib/appFw.so --section .rodata --section .data --limit 6 \
   --json evidence/geometry-probe-a7cii-201.json
@@ -88,7 +97,8 @@ python3 scripts/verify_design.py designs/<name>.json --image <p15>/lib/appFw.so
 ```
 
 `<p15>` は
-`<fwtool.py>/unpacked/firmware.tar_unpacked/0700_part_image/dev/nflasha15_unpacked`。
+`<fwtool.py>/unpacked/firmware.tar_unpacked/0700_part_image/dev/nflasha15_unpacked`、
+`<p8>` は同じ階層の `nflasha8_unpacked`。
 
 ## 含めないもの
 

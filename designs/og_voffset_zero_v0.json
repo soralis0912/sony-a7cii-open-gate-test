@@ -1,0 +1,46 @@
+{
+  "design": "og_voffset_zero_v0",
+  "model": "ILCE-7CM2",
+  "firmware": "2.01",
+  "status": "candidate, never applied to a camera. The old bytes are verified against the extracted firmware; nothing else is.",
+  "purpose": "Stop centring the short readout window in the sensor. The offset is 366 and (4672 - 3942) / 2 = 365, so it exists to centre the 16:9 window; with a full-height window it has to be 0.",
+  "target": {
+    "file": "p8 cpapp-b.bin (0700_part_image/dev/nflasha8_unpacked/cpapp-b.bin)",
+    "sha256": "f5a477588698ef965748903b8959a39ce4f59ffd4aee4d4234ef1670f56a1428"
+  },
+  "reference": "Mirrors the A7 IV kit's S7 (LC table V offset 366 -> 0) and S8 (LC field 403 -> 19) at this camera's own addresses. Apply it together with og_window_fullheight_v0, not instead of it.",
+  "patches": [
+    {
+      "kind": "S",
+      "addr": "0xdd8b44",
+      "old": "6e01",
+      "new": "0000",
+      "where": "cpapp",
+      "note": "vertical centring offset 366 -> 0 (first of two records)"
+    },
+    {
+      "kind": "S",
+      "addr": "0xdd8b48",
+      "old": "9301",
+      "new": "1300",
+      "where": "cpapp",
+      "note": "the LC field paired with it, 403 -> 19, as the A7 IV design does"
+    },
+    {
+      "kind": "S",
+      "addr": "0xdd8b52",
+      "old": "6e01",
+      "new": "0000",
+      "where": "cpapp",
+      "note": "vertical centring offset 366 -> 0 (second record)"
+    },
+    {
+      "kind": "S",
+      "addr": "0xdd8b56",
+      "old": "9301",
+      "new": "1300",
+      "where": "cpapp",
+      "note": "the LC field paired with it, 403 -> 19"
+    }
+  ]
+}

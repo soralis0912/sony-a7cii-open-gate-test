@@ -13,10 +13,9 @@ An attempt to build a kit that makes the Sony **ILCE-7CM2** (A7C II) on firmware
 **Ver. 2.01** record the full 3:2 sensor area — "open gate" — as a **temporary,
 memory-only** state.
 
-> **Status: scaffolding only. Nothing has been applied to a camera.**
-> There is **no verified design** (set of byte patches) for the ILCE-7CM2 yet.
-> What exists today is the design format, an offline checker, a probe that looks
-> for candidate addresses in the firmware, and a written record of what is missing.
+> **Status: the sensor-side addresses are found; nothing has been applied to a
+> camera.** Two candidate designs exist. What is verified about them is only
+> that the firmware really holds those values at those addresses.
 
 ## What this is a port of
 
@@ -37,7 +36,8 @@ approach for the A7C II. All A7 IV results belong to their original authors; see
 | Sensor | the same 33 MP generation as the A7 IV (7008 x 4672), so the open-gate dimensions should map closely |
 | Aspect / de-squeeze properties | present in the ILCE-7CM2 `appFw.so` (`0x02cf01fc ASPECT_RATIO`, the `DE_SQUEEZE_DISP` family) |
 | A path for running native code | **not established.** It needs service level A (`adjCodeLevel == 3`), and whether an A7C II grants it is unconfirmed |
-| Geometry / scaler / encoder addresses | **unknown.** None of the A7 IV addresses carry over |
+| Sensor geometry addresses | **found (2026-11-24).** The readout-mode table at 0xdd81d8 inside p8's `cpapp-b.bin`, carrying both 7008x4672 (the whole sensor) and today's 16:9 window 7008x3942. See [docs/SENSOR_TABLE.md](docs/SENSOR_TABLE.md) (Japanese) |
+| Scaler / encoder addresses | **unknown.** None of the A7 IV addresses carry over |
 | Applied to a camera | **not attempted** |
 
 The third row is the real gate. The "run native code over USB" path the A7 IV kit
@@ -55,13 +55,14 @@ backup properties. They need no native code and no design. The procedure is in
 ## What is here
 
 ```
-designs/     where designs (sets of byte patches) live, plus a format sample
-             note: no verified ILCE-7CM2 design exists yet
-scripts/     verify_design.py    check a design's old bytes against the extracted
-                                 firmware (PC only)
-             locate_geometry.py  probe the firmware for where the dimensions occur
-                                 (PC only)
-docs/        DERIVATION.md       for each A7 IV step, what has to be identified on
+designs/     designs (sets of byte patches); two candidates, old bytes verified
+scripts/     verify_design.py       check a design's old bytes against the
+                                    extracted firmware (PC only)
+             locate_sensor_table.py find and decode the sensor readout-mode table
+             locate_geometry.py     general probe for where dimensions occur
+docs/        SENSOR_TABLE.md     the table that was found and why the candidate
+                                 designs look the way they do
+             DERIVATION.md       for each A7 IV step, what has to be identified on
                                  the A7C II
              DESIGN_FORMAT.md    the design JSON format
              PROPERTY_EXPERIMENTS.md
