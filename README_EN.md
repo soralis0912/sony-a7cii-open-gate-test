@@ -37,6 +37,7 @@ approach for the A7C II. All A7 IV results belong to their original authors; see
 | Aspect / de-squeeze properties | present in the ILCE-7CM2 `appFw.so` (`0x02cf01fc ASPECT_RATIO`, the `DE_SQUEEZE_DISP` family) |
 | A path for running native code | **half confirmed (corrected 2026-11-24).** The A7 IV kit places a temporary `libJit.so` through Jiritsu's file write. Jiritsu rides on PFUNC 0x40 AdjustControl (category 0x1001), which does not depend on the privilege level, and its **read side is confirmed on hardware**. The **write side** (`SET_FILE` 0x4007) is what remains unverified |
 | Sensor geometry addresses | **found (2026-11-24).** The readout-mode table at 0xdd81d8 inside p8's `cpapp-b.bin`, carrying both 7008x4672 (the whole sensor) and today's 16:9 window 7008x3942. See [docs/SENSOR_TABLE.md](docs/SENSOR_TABLE.md) (Japanese) |
+| Output-size table | **found (2026-11-24).** At 0xbefe38 in `cpapp-b.bin`, four variants at 4K width - 16:9, 4:3, **3:2 = 3840x2560**, 1:1. The 3:2 output is already in Sony's own table |
 | Scaler / encoder addresses | **unknown.** None of the A7 IV addresses carry over |
 | Applied to a camera | **not attempted** |
 
