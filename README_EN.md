@@ -48,6 +48,10 @@ and a read-only probe live in the sibling repository
 (`docs/ON_MEMORY.md`, `scripts/probe_service_level.py`).
 **Until a camera reports level A, this repository cannot move forward.**
 
+**One thing can be tried on a camera right now**: the de-squeeze display
+backup properties. They need no native code and no design. The procedure is in
+[docs/PROPERTY_EXPERIMENTS.md](docs/PROPERTY_EXPERIMENTS.md) (Japanese).
+
 ## What is here
 
 ```
@@ -60,6 +64,8 @@ scripts/     verify_design.py    check a design's old bytes against the extracte
 docs/        DERIVATION.md       for each A7 IV step, what has to be identified on
                                  the A7C II
              DESIGN_FORMAT.md    the design JSON format
+             PROPERTY_EXPERIMENTS.md
+                                 the one experiment that needs no native code
 evidence/    probe output, as a reproducible record
 ```
 

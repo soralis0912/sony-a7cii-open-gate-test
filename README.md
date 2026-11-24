@@ -47,6 +47,10 @@ A7 IV の成果はすべて原著者のものです。詳細は [REFERENCES.md](
 の `docs/ON_MEMORY.md` と `scripts/probe_service_level.py`。
 **そこでレベル A が出ない限り、本リポジトリは前に進みません。**
 
+**今すぐ実機で試せるものが1つだけあります**：デスキーズ表示系の
+バックアッププロパティ。ネイティブ実行もデザインも要りません。手順は
+[docs/PROPERTY_EXPERIMENTS.md](docs/PROPERTY_EXPERIMENTS.md)。
+
 ## 入っているもの
 
 ```
@@ -56,6 +60,8 @@ scripts/     verify_design.py    デザインの old バイトを展開済み fw
              locate_geometry.py  fw 内で寸法が出てくる位置を探すプローブ（PC のみ）
 docs/        DERIVATION.md       A7 IV の各ステップに対して A7C II で何を特定すべきか
              DESIGN_FORMAT.md    デザイン JSON の形式
+             PROPERTY_EXPERIMENTS.md
+                                 ネイティブ実行なしで今すぐ試せる実験（実機）
 evidence/    プローブの出力（再現可能な記録）
 ```
 
