@@ -1,0 +1,92 @@
+{
+  "camera": "ILCE-7CM2",
+  "firmware": "2.01",
+  "date": "2026-11-25",
+  "method": "76-byte signature from cpapp-b.bin:0xdd832e searched through /dev/mem (O_RDONLY) by native/jit/jit_ogscan.c in the shell-access repository",
+  "dev_mem": {
+    "windows_mapped": 514,
+    "windows_failed": 0,
+    "readable_from": "0x400000000",
+    "readable_to": "0x500000000",
+    "note": "all 4 GB mapped; no STRICT_DEVMEM in the way"
+  },
+  "signature_file_offset": "0xdd832e",
+  "hits": [
+    {
+      "physical": "0x4086a0f4c",
+      "implied_base": "0x4078c8c1e",
+      "base_16mb_aligned": false
+    },
+    {
+      "physical": "0x4086a8d5b",
+      "implied_base": "0x4078d0a2d",
+      "base_16mb_aligned": false
+    },
+    {
+      "physical": "0x40bbdcf48",
+      "implied_base": "0x40ae04c1a",
+      "base_16mb_aligned": false
+    },
+    {
+      "physical": "0x41add832e",
+      "implied_base": "0x41a000000",
+      "base_16mb_aligned": true
+    },
+    {
+      "physical": "0x49f300f4b",
+      "implied_base": "0x49e528c1d",
+      "base_16mb_aligned": false
+    }
+  ],
+  "loaded_image": {
+    "signature_physical": "0x41add832e",
+    "image_base": "0x41a000000",
+    "base_alignment": "16 MB",
+    "in_reserved_region": "memrsv=0x0BE00000@0x410200000:uc",
+    "why": "base = hit - file offset is exactly 16 MB aligned and lands inside the uncached reserved block; none of the other hits do"
+  },
+  "patch_physical": [
+    {
+      "name": "record0 vertical[2]",
+      "physical": "0x41add8342",
+      "width": "u16",
+      "old": 2,
+      "new": 8
+    },
+    {
+      "name": "record0 vertical[4] (v_active)",
+      "physical": "0x41add8346",
+      "width": "u16",
+      "old": 3942,
+      "new": 4672
+    },
+    {
+      "name": "record0 vertical[6]",
+      "physical": "0x41add834a",
+      "width": "u16",
+      "old": 2,
+      "new": 8
+    },
+    {
+      "name": "record1 vertical[2]",
+      "physical": "0x41add8368",
+      "width": "u16",
+      "old": 2,
+      "new": 8
+    },
+    {
+      "name": "record1 vertical[4] (v_active)",
+      "physical": "0x41add836c",
+      "width": "u16",
+      "old": 3942,
+      "new": 4672
+    },
+    {
+      "name": "record1 vertical[6]",
+      "physical": "0x41add8370",
+      "width": "u16",
+      "old": 2,
+      "new": 8
+    }
+  ]
+}
